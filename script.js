@@ -21,11 +21,21 @@ function computerPlayer(){
     return res;
 }
 
-// round 1 game
+// single round 
 function round(playerSelection, compSelection){
     if (playerSelection == compSelection) {
-        return "Tie"
-    } else if (playerSelection == "rock" && compSelection == "paper"){
-        return "You Lose! Paper beats rock";
+        return "Tie";
+    } else if ((playerSelection == "rock" && compSelection == "paper") || (playerSelection == "paper" && compSelection == "scissors") || (playerSelection == "scissors" && compSelection == "rock")){
+        return `You Lose! Sorry, ${compSelection} beats ${playerSelection}.`;
+    } else if ((playerSelection == "paper" && compSelection == "rock") || (playerSelection == "scissors" && compSelection == "paper") || (playerSelection == "rock" && compSelection == "scissors")){
+        return `You Win! Wahoo, ${playerSelection} beats ${compSelection}!`;
+    } else {
+        return "Please enter rock, paper, or scissors!"
     }
 }
+
+// defines what user and computer selects; rock, paper, or scissors
+const compSelection = computerPlayer();
+const playerSelection = prompt("Choose your fighter: rock, paper, or scissors?").toLowerCase();
+
+console.log(round(playerSelection, compSelection));
