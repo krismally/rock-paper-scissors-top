@@ -8,34 +8,57 @@
 7. return won if user's gamesWon>gamesLost, else return lost
 */
 
-// define computer player 
+// define computer player
 function computerPlayer(){
     let res = Math.floor(Math.random() * 3);
-    if (res==1){
-        res = "rock";
-    } else if (res==2){
-        res = "paper";
-    } else{
-        res = "scissors";
+    switch (res) {
+        case 0:
+            return "rock";
+        case 1:
+            return "paper";
+        case 2:
+            return 'scissors';
     }
-    return res;
 }
 
-// single round 
-function round(playerSelection, compSelection){
+let playerScore = 0;
+let compScore = 0;
+
+// single round
+function round(playerSelection, compSelection) {
     if (playerSelection == compSelection) {
         return "Tie";
-    } else if ((playerSelection == "rock" && compSelection == "paper") || (playerSelection == "paper" && compSelection == "scissors") || (playerSelection == "scissors" && compSelection == "rock")){
+    } else if (
+        (playerSelection == "rock" && compSelection == "paper") || 
+        (playerSelection == "paper" && compSelection == "scissors") || 
+        (playerSelection == "scissors" && compSelection == "rock")
+    ){
+        compScore++;
         return `You Lose! Sorry, ${compSelection} beats ${playerSelection}.`;
-    } else if ((playerSelection == "paper" && compSelection == "rock") || (playerSelection == "scissors" && compSelection == "paper") || (playerSelection == "rock" && compSelection == "scissors")){
+    } else if (
+        (playerSelection == "paper" && compSelection == "rock") || 
+        (playerSelection == "scissors" && compSelection == "paper") || 
+        (playerSelection == "rock" && compSelection == "scissors")
+    ){
+        playerScore++;
         return `You Win! Wahoo, ${playerSelection} beats ${compSelection}!`;
-    } else {
-        return "Please enter rock, paper, or scissors!"
     }
 }
 
-// defines what user and computer selects; rock, paper, or scissors
-const compSelection = computerPlayer();
-const playerSelection = prompt("Choose your fighter: rock, paper, or scissors?").toLowerCase();
+function game(){
+    for (let i=0; i<5;i++){
+        let playerSelection = prompt("Choose your fighter: rock, paper, or scissors?").toLowerCase();
+        let compSelection = computerPlayer();
+        console.log(round(playerSelection, compSelection))
+    }
+    if (playerScore>compScore){
+        return "You beat the computer! Congrats!"
+    } else if (playerScore==compScore){
+        return "It's a tie!"
+    } else {
+        return "The computer beat you! Sorry:(."
+    }
+}
 
-console.log(round(playerSelection, compSelection));
+
+console.log(game());
